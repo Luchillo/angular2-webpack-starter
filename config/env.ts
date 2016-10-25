@@ -5,6 +5,8 @@ import {
   root,
 } from './helpers.ts';
 
+import * as OfflinePlugin from 'offline-plugin';
+
 export const EXCLUDE_SOURCEMAPS = [
   // these packages have problems with their sourcemaps
   root('node_modules/@angular'),
@@ -16,7 +18,7 @@ export const CUSTOM_COPY_FOLDERS = [
 ];
 
 export const CUSTOM_PLUGINS_COMMON = [
-
+  new OfflinePlugin(),
 ];
 
 export const CUSTOM_PLUGINS_DEV = [
