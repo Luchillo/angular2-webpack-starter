@@ -7,15 +7,15 @@ import { RouterModule } from '@angular/router';
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+import { AboutComponent } from './about';
+import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import { AppState, InternalStateType } from './app.service';
+import { AppState } from './app.service';
+import { ENV_PROVIDERS } from './environment';
 import { HomeComponent } from './home';
-import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
+import { ROUTES } from './app.routes';
 import { XLargeDirective } from './home/x-large';
 
 import * as Runtime from 'offline-plugin/runtime';
@@ -24,15 +24,10 @@ Runtime.install();
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
   AppState,
-];
 
-type StoreType = {
-  state: InternalStateType,
-  restoreInputValues: () => void,
-  disposeOldHosts: () => void,
-};
+  ...APP_RESOLVER_PROVIDERS,
+];
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process

@@ -9,7 +9,7 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
-const ENV = process.env.NODE_ENV || 'production';
+const ENV = process.env.NODE_ENV || 'testing';
 
 module.exports = config => {
 
@@ -55,12 +55,12 @@ module.exports = config => {
       },
       module: {
         rules: [
-          // {
-          //   enforce: 'pre',
-          //   test: /\.ts$/,
-          //   loader: 'tslint-loader',
-          //   exclude: [helpers.root('node_modules')]
-          // },
+          {
+            enforce: 'pre',
+            test: /\.ts$/,
+            loader: 'tslint-loader',
+            exclude: [helpers.root('node_modules')]
+          },
           {
             enforce: 'pre',
             test: /\.js$/,
@@ -162,14 +162,16 @@ module.exports = config => {
     },
 
     coverageReporter: {
-      type: 'in-memory'
+      dir: 'coverage',
+      reporters: [
+        // reporters not supporting the `file` property
+        { type: 'html', subdir: 'html' },
+      ]
     },
 
-    // remapCoverageReporter: {
-    //   'text-summary': null,
-    //   json: './coverage/coverage.json',
-    //   html: './coverage/html'
-    // },
+    remapCoverageReporter: {
+      html: './coverage/html',
+    },
 
     // Webpack please don't spam the console when running in karma!
     webpackMiddleware: {
@@ -194,7 +196,7 @@ module.exports = config => {
      * level of logging
      * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
      */
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
