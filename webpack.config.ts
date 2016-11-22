@@ -94,11 +94,7 @@ const commonConfig = function webpackConfig(): WebpackConfig {
       },
       {
         test: /\.ts$/,
-        loaders: [
-          'awesome-typescript-loader',
-          'angular2-template-loader',
-          'angular2-router-loader',
-        ],
+        loader: '@ngtools/webpack',
         exclude: [/\.(spec|e2e)\.ts$/],
       },
       {
@@ -332,7 +328,8 @@ const prodConfig = () => {
   if (isAot) {
     config.plugins.push(new AotPlugin({
       tsConfigPath: 'tsconfig.json',
-      mainPath: 'src/main.browser.ts',
+      mainPath: 'src/main.aot.ts',
+      entryModule: 'src/app/app.module.ts#AppModule',
     }));
   }
 
