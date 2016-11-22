@@ -263,7 +263,7 @@ const prodConfig = () => {
   config.devtool = 'source-map';
 
   config.entry = {
-    main: `./src/main.browser`,
+    main: `./src/main.aot`,
     polyfills: polyfills(),
     rxjs: rxjs(),
     vendors: vendors(),
