@@ -94,7 +94,11 @@ const commonConfig = function webpackConfig(): WebpackConfig {
       },
       {
         test: /\.ts$/,
-        loader: '@ngtools/webpack',
+        loaders: [
+          'awesome-typescript-loader',
+          'angular2-template-loader',
+          'angular2-router-loader',
+        ],
         exclude: [/\.(spec|e2e)\.ts$/],
       },
       {
@@ -263,7 +267,7 @@ const prodConfig = () => {
   config.devtool = 'source-map';
 
   config.entry = {
-    main: `./src/main.aot`,
+    main: isAot ? `./src/main.aot` : `./src/main.browser`,
     polyfills: polyfills(),
     rxjs: rxjs(),
     vendors: vendors(),
@@ -326,10 +330,17 @@ const prodConfig = () => {
   ];
 
   if (isAot) {
+    config.module = {
+      rules: [{
+        test: /\.ts$/,
+        loader: '@ngtools/webpack',
+        exclude: [/\.(spec|e2e)\.ts$/],
+      }]
+    };
     config.plugins.push(new AotPlugin({
-      tsConfigPath: 'tsconfig.json',
-      mainPath: 'src/main.aot.ts',
-      entryModule: 'src/app/app.module.ts#AppModule',
+      tsConfigPath: './tsconfig.json',
+      // mainPath: './src/main.aot.ts',
+      // entryModule: './src/app/app.module#AppModule',
     }));
   }
 

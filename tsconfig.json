@@ -41,7 +41,6 @@
     "useCache": true
   },
   "angularCompilerOptions": {
-    "genDir": "./src",
     "entryModule": "./src/app/app.module#AppModule"
   },
   "compileOnSave": false,
